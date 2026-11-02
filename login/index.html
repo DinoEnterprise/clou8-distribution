@@ -1,0 +1,473 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f47b20">
+<title>Login | CLOU8 Distribution</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+  box-sizing:border-box;
+  font-family:'Outfit',sans-serif;
+  margin:0;
+  padding:0;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  background:
+    radial-gradient(circle at 15% 15%,rgba(255,155,70,.18),transparent 35%),
+    linear-gradient(145deg,#f5f5f5,#e8e8e8);
+}
+
+/* LOGIN CARD */
+.container{
+  width:100%;
+  max-width:410px;
+  background:#fff;
+  border-radius:25px;
+  padding:35px 27px 29px;
+  border:1px solid rgba(0,0,0,.04);
+  box-shadow:0 15px 45px rgba(0,0,0,.09);
+  text-align:center;
+  animation:enter .55s ease;
+}
+
+/* BRAND */
+.brand{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:25px;
+}
+
+.brand-icon{
+  width:48px;
+  height:48px;
+  object-fit:contain;
+  border-radius:12px;
+}
+
+.brand-name{
+  text-align:left;
+  font-size:23px;
+  font-weight:800;
+  letter-spacing:1.5px;
+  color:#171717;
+}
+
+.brand-name span{
+  display:block;
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:2.1px;
+  color:#999;
+  margin-top:-3px;
+}
+
+/* TITLE */
+h2{
+  font-size:24px;
+  font-weight:700;
+  color:#202020;
+  margin-bottom:7px;
+}
+
+.subtitle{
+  color:#929292;
+  font-size:13px;
+  margin-bottom:29px;
+}
+
+/* INPUT */
+.field{
+  position:relative;
+  margin-bottom:14px;
+}
+
+input{
+  width:100%;
+  padding:15px 16px;
+  border:1px solid #e5e5e5;
+  border-radius:12px;
+  font-size:14px;
+  outline:none;
+  color:#222;
+  background:#fff;
+  transition:.2s;
+}
+
+input:focus{
+  border-color:#f47b20;
+  box-shadow:0 0 0 3px rgba(244,123,32,.10);
+}
+
+input::placeholder{
+  color:#aaa;
+}
+
+.password-field input{
+  padding-right:75px;
+}
+
+.toggle{
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  border:0;
+  background:none;
+  color:#f47b20;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  padding:7px;
+  width:auto;
+}
+
+/* FORGOT */
+.forgot{
+  text-align:right;
+  margin:2px 2px 19px;
+}
+
+.forgot a{
+  color:#777;
+  font-size:12px;
+  text-decoration:none;
+}
+
+.forgot a:hover{
+  color:#f47b20;
+}
+
+/* BUTTON */
+.primary{
+  width:100%;
+  padding:15px;
+  border:0;
+  border-radius:12px;
+  background:#f47b20;
+  color:#fff;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+  letter-spacing:.3px;
+  box-shadow:0 6px 15px rgba(244,123,32,.20);
+  transition:.2s;
+}
+
+.primary:hover{
+  background:#e96b12;
+}
+
+.primary:active{
+  transform:scale(.97);
+}
+
+.primary:disabled{
+  opacity:.6;
+  cursor:wait;
+  transform:none;
+}
+
+/* ERROR */
+#error{
+  min-height:21px;
+  margin-top:12px;
+  font-size:12px;
+  color:#dc3838;
+  line-height:1.5;
+}
+
+/* FOOTER */
+.footer{
+  margin-top:27px;
+  padding-top:17px;
+  border-top:1px solid #f0f0f0;
+  color:#aaa;
+  font-size:11px;
+}
+
+.footer strong{
+  color:#f47b20;
+  font-weight:700;
+}
+
+/* LOADER */
+.loader{
+  position:fixed;
+  inset:0;
+  background:rgba(255,255,255,.94);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:13px;
+  color:#222;
+  font-size:14px;
+  font-weight:700;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+}
+
+.loader.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.spinner{
+  width:30px;
+  height:30px;
+  border:3px solid #f3e4d8;
+  border-top-color:#f47b20;
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+
+/* ANIMATION */
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+@keyframes enter{
+  from{opacity:0;transform:translateY(25px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@media(max-width:380px){
+  .container{padding:30px 21px}
+  h2{font-size:22px}
+}
+</style>
+</head>
+
+<body>
+
+<main class="container" id="card">
+
+  <div class="brand">
+    <img src="assets/images/clou8-logo.png" class="brand-icon" alt="CLOU8">
+    <div class="brand-name">
+      CLOU8
+      <span>DISTRIBUTION</span>
+    </div>
+  </div>
+
+  <h2>Welcome Back</h2>
+  <p class="subtitle">Sign in to continue to your account.</p>
+
+  <form id="loginForm">
+
+    <div class="field">
+      <input
+        id="email"
+        type="email"
+        placeholder="Email address"
+        autocomplete="username"
+        required
+      >
+    </div>
+
+    <div class="field password-field">
+      <input
+        id="pass"
+        type="password"
+        placeholder="Password"
+        autocomplete="current-password"
+        required
+      >
+      <button type="button" class="toggle" id="eye">
+        SHOW
+      </button>
+    </div>
+
+    <div class="forgot">
+      <a href="forgot-password.html">Forgot password?</a>
+    </div>
+
+    <button type="submit" class="primary" id="loginBtn">
+      Sign In
+    </button>
+
+    <div id="error" role="alert"></div>
+
+  </form>
+
+  <div class="footer">
+    Powered by <strong>CLOU8 Distribution</strong>
+  </div>
+
+</main>
+
+<div class="loader" id="loader">
+  <div class="spinner"></div>
+  <span>Preparing CLOU8...</span>
+</div>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+/* FIREBASE CONFIG */
+if(!firebase.apps.length){
+  firebase.initializeApp({
+    apiKey: "AIzaSyBRSkmZXbTPNupefSmjXvlKLDNsaeQ2zag",
+    authDomain: "dynopay-2513c.firebaseapp.com",
+    databaseURL: "https://dynopay-2513c-default-rtdb.asia-southeast1.firebasedatabase.app"
+  });
+}
+
+const auth = firebase.auth();
+const db = firebase.database();
+
+/* ELEMENTS */
+const form = document.getElementById("loginForm");
+const emailInput = document.getElementById("email");
+const passInput = document.getElementById("pass");
+const errorEl = document.getElementById("error");
+const loginBtn = document.getElementById("loginBtn");
+const loader = document.getElementById("loader");
+
+let loginInProgress = false;
+
+/* PASSWORD TOGGLE */
+document.getElementById("eye").addEventListener("click",function(){
+  const visible = passInput.type === "password";
+  passInput.type = visible ? "text" : "password";
+  this.textContent = visible ? "HIDE" : "SHOW";
+});
+
+/* CLEAR ERROR */
+emailInput.addEventListener("input",()=>{
+  errorEl.textContent = "";
+});
+
+passInput.addEventListener("input",()=>{
+  errorEl.textContent = "";
+});
+
+/* BRAND ACCESS CHECK */
+async function checkClou8Access(user){
+
+  const userSnapshot = await db
+    .ref("users/" + user.uid)
+    .once("value");
+
+  const userData = userSnapshot.val();
+
+  if(!userData || userData.status !== "active"){
+    throw new Error("Account is inactive. Please contact the administrator.");
+  }
+
+  const accessSnapshot = await db
+    .ref("brandAccess/" + user.uid + "/clou8")
+    .once("value");
+
+  if(accessSnapshot.val() !== true){
+    throw new Error("You don't have access to CLOU8. Please contact the administrator.");
+  }
+
+  return userData;
+}
+
+/* LOGIN */
+form.addEventListener("submit",async function(e){
+  e.preventDefault();
+
+  if(loginBtn.disabled) return;
+
+  const email = emailInput.value.trim();
+  const password = passInput.value;
+
+  if(!email || !password){
+    errorEl.textContent = "Email and password are required.";
+    return;
+  }
+
+  loginInProgress = true;
+  loginBtn.disabled = true;
+  loginBtn.textContent = "Signing in...";
+  errorEl.textContent = "";
+
+  try{
+    await auth.setPersistence(
+      firebase.auth.Auth.Persistence.LOCAL
+    );
+
+    const credential = await auth.signInWithEmailAndPassword(
+      email,
+      password
+    );
+
+    const userData = await checkClou8Access(credential.user);
+
+    await db.ref(
+      "clou8/users/" + credential.user.uid + "/lastLogin"
+    ).set(Date.now());
+
+    loader.classList.add("active");
+
+    setTimeout(()=>{
+      window.location.replace("dashboard.html");
+    },500);
+
+  }catch(error){
+
+    if(error.code === "auth/user-not-found"){
+      errorEl.textContent = "User not found.";
+    }else if(
+      error.code === "auth/wrong-password" ||
+      error.code === "auth/invalid-credential"
+    ){
+      errorEl.textContent = "Incorrect email or password.";
+    }else if(error.code === "auth/invalid-email"){
+      errorEl.textContent = "Invalid email address.";
+    }else{
+      errorEl.textContent = error.message ||
+        "An error occurred. Please try again.";
+    }
+
+    if(auth.currentUser){
+      try{
+        await auth.signOut();
+      }catch(_){}
+    }
+
+    loginBtn.disabled = false;
+    loginBtn.textContent = "Sign In";
+    loginInProgress = false;
+  }
+});
+
+/* AUTO REDIRECT */
+auth.onAuthStateChanged(async function(user){
+
+  if(loginInProgress || !user) return;
+
+  try{
+    await checkClou8Access(user);
+    loader.classList.add("active");
+    window.location.replace("dashboard.html");
+  }catch(error){
+    if(auth.currentUser){
+      await auth.signOut();
+    }
+  }
+});
+</script>
+
+</body>
+</html>
